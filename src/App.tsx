@@ -15,11 +15,9 @@ type Props = { title: string }
 export class App extends React.Component<Props & ConnectedProps & ConnectedDispatch, {}> {
     constructor(props) {
         super(props)
-        this.state = { title: "Hello, world!!" }
     }
 
     click = (e) => {
-        console.log("click ...")
         this.props.updateCount(this.props.count + 1)
     }
 

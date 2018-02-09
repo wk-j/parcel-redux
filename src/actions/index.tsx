@@ -15,6 +15,5 @@ export type Action =
 const runAction = (dp: Dispatch<{}>, action: Action) => dp(action);
 
 export const updateCount = (count: number) => (dp) => {
-    console.log("updateCount")
     runAction(dp, { type: "UpdateCount", value: count })
 }
