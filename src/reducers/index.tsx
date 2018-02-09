@@ -1,8 +1,8 @@
 import { combineReducers } from "redux"
-import { State, App1State, Action } from "../actions"
+import { Action, App1State, State } from "../actions"
 
 function app1Reducer(state: App1State, action: Action): App1State {
-    if (action.type == "UpdateCount") {
+    if (action.type === "UpdateCount") {
         return { count: action.value }
     }
     return { count: 1 }

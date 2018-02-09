@@ -1,6 +1,6 @@
-import { Dispatch, connect } from "react-redux";
-import { State, updateCount } from "./actions";
 import * as React from "react";
+import { connect, Dispatch } from "react-redux";
+import { State, updateCount } from "./actions";
 
 type ConnectedProps = {
     count: number
@@ -17,16 +17,16 @@ export class App extends React.Component<Props & ConnectedProps & ConnectedDispa
         super(props)
     }
 
-    click = (e) => {
-        this.props.updateCount(this.props.count + 1)
-    }
-
-    render() {
+    public render() {
         return (
             <div>
                 <h1 onClick={this.click}> {this.props.title} {this.props.count}</h1>
             </div>
         );
+    }
+
+    private click = (e) => {
+        this.props.updateCount(this.props.count + 1)
     }
 }
 

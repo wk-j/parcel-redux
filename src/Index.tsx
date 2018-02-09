@@ -1,39 +1,38 @@
-import { Provider, connect, Dispatch } from "react-redux"
-import { createStore, Store, combineReducers } from "redux"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import thunk from "redux-thunk";
-import { applyMiddleware } from "redux";
-import { State, updateCount } from "./actions";
-import { reducers } from "./reducers";
-import { ConnectedApp, App } from "./App";
+import { connect, Dispatch, Provider } from "react-redux"
+import { combineReducers, createStore, Store } from "redux"
+import { applyMiddleware } from "redux"
+import thunk from "redux-thunk"
+import { State, updateCount } from "./actions"
+import { App, ConnectedApp } from "./App"
+import { reducers } from "./reducers"
 
-declare var module;
+declare var module
 
 const defaultState = {
     app1: { count: 0 }
 }
 
 export default function configureStore(initialState) {
-    const store: Store<State> = createStore(reducers, initialState, applyMiddleware(thunk))
+    const localStore: Store<State> = createStore(reducers, initialState, applyMiddleware(thunk))
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
-        module.hot.accept('./reducers', () => {
-            const nextRootReducer = require('./reducers/index');
-            store.replaceReducer(nextRootReducer);
-        });
+        module.hot.accept("./reducers", () => {
+            const nextRootReducer = require("./reducers/index")
+            localStore.replaceReducer(nextRootReducer)
+        })
     }
-
-    return store;
+    return localStore
 }
 
-let store = configureStore(defaultState);
+const store = configureStore(defaultState);
 
-let root =
+const root =
     <Provider store={store}>
         <ConnectedApp title="Hello, world!" />
     </Provider>
 
-var el = document.getElementById("app");
-ReactDOM.render(root, el);
+const el = document.getElementById("app")
+ReactDOM.render(root, el)
